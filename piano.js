@@ -5,6 +5,7 @@ let notaActual = 0;
 // Cantidad de notas acertadas para cada nivel
 const ia1 = Math.ceil(secuenciaDeNotas.length / 3); // Primer tercio
 const ia2 = ia1 * 2; // Segundo tercio
+const ia3 = ia1*3 -1;
 
 let mensaje;
 
@@ -65,13 +66,21 @@ function controlDeTeclaPresionada(nota) {
         notaActual++;
         activarTecla(nota);
         console.log(`Nota tocada: ${nota}`); // Mensaje en la consola
-    } else {
+        console.log(`Cantidad de notas: ${ia3} Cntidad de notas correctas: ${notaActual}`); // Mensaje en la consola
+        
+    } else{
+       
         if (notaActual < ia1) {
             mensaje = "¡Falta mucha práctica!";
-        } else if (notaActual < ia2) {
+        }
+
+        if (notaActual < ia2) {
             mensaje = "¡Eres bueno, pero te falta un poco de práctica!";
-        } else if (notaActual === secuenciaDeNotas.length) {
+        }
+        
+        if (notaActual === ia3) {
             mensaje = "¡Bien hecho!";
+            
         }
         alert(mensaje);
         notaActual = 0; // Reiniciar para jugar de nuevo
