@@ -41,15 +41,6 @@ function activarTecla(nota) {
     }
 }
 
-// Manejo de la tecla presionada
-function teclaPresionada(event) {
-    const tecla = event.key;
-    const nota = mapeoTeclas[tecla]; // Obtiene la nota asociada a la tecla presionada
-    if (nota) {
-        controlDeTeclaPresionada(nota); // Pasar la nota a la función
-    }
-}
-
 function controlDeTeclaPresionada(nota) {
     const notaCorrecta = secuenciaDeNotas[notaActual];
     if (nota === notaCorrecta) { // Comparar los valores de las notas
@@ -66,6 +57,15 @@ function controlDeTeclaPresionada(nota) {
         }
         alert(mensaje);
         notaActual = 0; // Reiniciar para jugar de nuevo
+    }
+}
+
+// Manejo de la tecla presionada
+function teclaPresionada(event) {
+    const tecla = event.key;
+    const nota = mapeoTeclas[tecla]; // Obtiene la nota asociada a la tecla presionada
+    if (nota) {
+        controlDeTeclaPresionada(nota); // Pasar la nota a la función
     }
 }
 
