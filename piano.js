@@ -1,8 +1,14 @@
-// Secuencia de notas para
+// Secuencia de notas
 const secuenciaDeNotas = ["do", "do", "sol", "sol", "la", "la", "sol", "fa", "fa", "mi", "mi", "re", "re", "do"];
 let notaActual = 0;
 
-// de teclas a notas
+// Cantidad de notas acertadas para cada nivel
+const ia1 = Math.ceil(secuenciaDeNotas.length / 3); // Primer tercio
+const ia2 = ia1 * 2; // Segundo tercio
+
+let mensaje;
+
+// Mapeo de teclas a notas
 const mapeoTeclas = {
     'e': 'do',
     'r': 're',
@@ -15,49 +21,56 @@ const mapeoTeclas = {
 
 const duracionNota = 200;
 
-// reproduce el sonido de la nota
+// Reproduce el sonido de la nota
 function reproducirSonido(nota) {
     const audio = new Audio(`data/${nota}.mp3`);
-    audio.play().catch();
+    audio.play().catch(error => console.log(error));
 }
 
-//activa la tecla
+// Activa la tecla
 function activarTecla(nota) {
     const tecla = document.querySelector(`.tecla[data-note="${nota}"]`);
     if (tecla) {
-        tecla.classList.add('active'); // rellena
-        reproducirSonido(nota); // reproducir el sonido
+        tecla.classList.add('active'); // Rellena
+        reproducirSonido(nota); // Reproducir el sonido
 
-        // saca el relleno
+        // Saca el relleno
         setTimeout(() => {
             tecla.classList.remove('active');
         }, duracionNota);
     }
 }
 
-// datos de entrada del teclado
-function teclaPresionada(tecla) {
-    const nota = mapeoTeclas[tecla.key]; // obtiene la nota asociada a la tecla presionada
+// Manejo de la tecla presionada
+function teclaPresionada(event) {
+    const tecla = event.key;
+    const nota = mapeoTeclas[tecla]; // Obtiene la nota asociada a la tecla presionada
     if (nota) {
-        const unaTeclaFuePresionada = document.querySelector(`.tecla[data-note="${nota}"]`);
-        if (unaTeclaFuePresionada) {
-            activarTecla(nota);
-        }
+        controlDeTeclaPresionada(nota); // Pasar la nota a la función
     }
 }
 
-function reproducirMelodia() {
-    if (notaActual < secuenciaDeNotas.length) { // Cambiado de <= a <
-        const nota = secuenciaDeNotas[notaActual];
-        console.log(`Nota tocada: ${nota}`); // Mensaje en la consola
+function controlDeTeclaPresionada(nota) {
+    const notaCorrecta = secuenciaDeNotas[notaActual];
+    if (nota === notaCorrecta) { // Comparar los valores de las notas
+        notaActual++;
         activarTecla(nota);
-        notaActual++; // Incremento correcto
+        console.log(`Nota tocada: ${nota}`); // Mensaje en la consola
     } else {
-        notaActual = 0; // Reiniciar el índice
+        if (notaActual < ia1) {
+            mensaje = "¡Falta mucha práctica!";
+        } else if (notaActual < ia2) {
+            mensaje = "¡Eres bueno, pero te falta un poco de práctica!";
+        } else {
+            mensaje = "¡Bien hecho!";
+        }
+        alert(mensaje);
+        notaActual = 0; // Reiniciar para jugar de nuevo
     }
 }
 
+function estamosJugando() {
+    document.addEventListener('keydown', teclaPresionada);
+}
 
-document.addEventListener('keydown', teclaPresionada);
-setInterval(reproducirMelodia, 500);
-
+estamosJugando();
