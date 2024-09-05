@@ -1,7 +1,3 @@
-// Secuencia de notas para
-const secuencia = ["do", "do", "sol", "sol", "la", "la", "sol", "fa", "fa", "mi", "mi", "re", "re", "do"];
-let notaActual = 0;
-
 // niveles de conocimientos
 const ia1 = Math.ceil(secuencia.length / 2,5);
 const ia2 = ia1 * 2;
