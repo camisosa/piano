@@ -8,6 +8,9 @@ const ia2 = ia1 * 2; // Segundo tercio
 
 let mensaje;
 
+let puedeReproducirSonido;
+
+
 // Mapeo de teclas a notas
 const mapeoTeclas = {
     'e': 'do',
@@ -39,6 +42,20 @@ function activarTecla(nota) {
             tecla.classList.remove('active');
         }, duracionNota);
     }
+}
+
+function melodía() {
+    let intervaloMelodia = setInterval(() => {
+        if (notaActual < secuenciaDeNotas.length) {
+            const nota = secuenciaDeNotas[notaActual];
+            activarTecla(nota);
+            console.log(`Nota tocada: ${nota}`); // Mensaje en la consola
+            notaActual++;
+        } else {
+            clearInterval(intervaloMelodia); // Detener la melodía cuando haya terminado
+            puedeReproducirSonido = false; // Habilitar el control de teclado
+        }
+    }, 500);
 }
 
 function controlDeTeclaPresionada(nota) {
