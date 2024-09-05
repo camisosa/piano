@@ -54,6 +54,7 @@ function melodía() {
         } else {
             clearInterval(intervaloMelodia); // Detener la melodía cuando haya terminado
             puedeReproducirSonido = false; // Habilitar el control de teclado
+            notaActual = 0; // Reiniciar para jugar de nuevo
         }
     }, 500);
 }
@@ -69,7 +70,7 @@ function controlDeTeclaPresionada(nota) {
             mensaje = "¡Falta mucha práctica!";
         } else if (notaActual < ia2) {
             mensaje = "¡Eres bueno, pero te falta un poco de práctica!";
-        } else {
+        } else if (notaActual === secuenciaDeNotas.length) {
             mensaje = "¡Bien hecho!";
         }
         alert(mensaje);
@@ -88,6 +89,7 @@ function teclaPresionada(event) {
 
 function estamosJugando() {
     document.addEventListener('keydown', teclaPresionada);
+    melodía();
 }
 
 estamosJugando();
