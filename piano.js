@@ -1,6 +1,6 @@
-// niveles de conocimientos
-const ia1 = Math.ceil(secuencia.length / 2,5);
-const ia2 = ia1 * 2;
+// Secuencia de notas para
+const secuenciaDeNotas = ["do", "do", "sol", "sol", "la", "la", "sol", "fa", "fa", "mi", "mi", "re", "re", "do"];
+let notaActual = 0;
 
 // de teclas a notas
 const mapeoTeclas = {
@@ -13,7 +13,6 @@ const mapeoTeclas = {
     'o': 'si'
 };
 
-// duracion de las notas
 const duracionNota = 200;
 
 // reproduce el sonido de la nota
@@ -21,6 +20,8 @@ function reproducirSonido(nota) {
     const audio = new Audio(`data/${nota}.mp3`);
     audio.play().catch();
 }
+
+//activa la tecla
 function activarTecla(nota) {
     const tecla = document.querySelector(`.tecla[data-note="${nota}"]`);
     if (tecla) {
@@ -45,5 +46,18 @@ function teclaPresionada(tecla) {
     }
 }
 
+function reproducirMelodia() {
+    if (notaActual < secuenciaDeNotas.length) { // Cambiado de <= a <
+        const nota = secuenciaDeNotas[notaActual];
+        console.log(`Nota tocada: ${nota}`); // Mensaje en la consola
+        activarTecla(nota);
+        notaActual++; // Incremento correcto
+    } else {
+        notaActual = 0; // Reiniciar el índice
+    }
+}
+
 
 document.addEventListener('keydown', teclaPresionada);
+setInterval(reproducirMelodia, 500);
+
