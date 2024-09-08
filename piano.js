@@ -1,6 +1,6 @@
 // Secuencia de notas
 const secuenciaDeNotas = [
-    "do", "do", "sol", "sol", "la", "la", "sol", 
+    "do", "do", "sol", "sol", "la", "la", "sol",
     "fa", "fa", "mi", "mi", "re", "re", "do",
     /*"sol", "sol", "fa", "fa", "mi", "mi", "re", 
     "sol", "sol", "fa", "fa", "mi", "mi", "re"*/
@@ -66,7 +66,7 @@ function melodía() {
     mensajeDeIa.forEach(mensajeDeIa => {
         mensajeDeIa.style.display = 'none'; // Oculta todos los mensajes}
     });
-    
+
     intervaloMelodia = setInterval(() => {
         if (notaActual < secuenciaDeNotas.length) {
             const nota = secuenciaDeNotas[notaActual];
@@ -232,7 +232,7 @@ function cancelar() {
         pianoMuestra.style.display = 'block'; // Muestra el piano
         clearInterval(intervaloMelodia); // Detiene la reproducción de la melodía si está sonando
         notaActual = 0; // Reiniciar la secuencia de notas
-    }     
+    }
 }
 
 
