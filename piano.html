@@ -1,46 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="data/icon.png" type="image/x-icon">
     <link rel="stylesheet" href="piano.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap">
     <title>Piano</title>
 </head>
-<body>
 
+<body>
+    <div class="carrusel">
+        <div class="carrusel-contenedor">
+            <button class="anterior boton" onclick="volver()"><img src="data/flechaIzquierda.png" alt=""></button>
+            <div class="diapositivas-contenedor">
+                <div class="diapositiva"><img src="data/indicacion1.jpg" alt=""></div>
+                <div class="diapositiva"><img src="data/indicacion2.jpg" alt=""></div>
+                <div class="diapositiva"><img src="data/indicacion3.jpg" alt=""></div>
+                <div class="diapositiva"><img src="data/indicacion4.jpg" alt=""></div>
+            </div>
+            <button class="siguiente boton" onclick="continuar()"><img src="data/flechaDerecha.png" alt=""></button>
+        </div>
+    </div>
+    <div class="piano-muestra">
+        <button class="encendido boton" onclick="encenderPiano()"><img src="data/botonOn.png" alt=""></button>
+        <button class="apagado boton" onclick="cancelar()"><img src="data/botonOff.png" alt=""></button>
+        <h1 class="mensajeConsola">¡PROBEMOS!</h1>
+    </div>
     <div class="piano-contenedor">
+        <div class="parte-superior">
+            <button class="apagado boton" onclick="cancelar()"><img src="data/botonOff.png" alt=""></button>
+            <div class="cont-mensajeConsola">
+                <h1 class="mensajeConsola">¡PRESTA ATENCIÓN!</h1>
+                <h1 class="mensajeConsola">TU TURNO</h1>
+                <h1 class="mensajeConsola">¡Bien! Tu IA ES <span class="remarcado">UDIO</span></h1>
+                <div class="ia">
+                    <div class="image-container">
+                        <img src="data/udio1.png" alt="">
+                        <img src="data/udio2.png" alt="">
+                    </div>
+                </div>
+                <h1 class="mensajeConsola">¡BIEN HECHO! Tu IA ES <span class="remarcado">AIVA</span></h1>
+                <div class="ia">
+                    <div class="image-container">
+                        <img src="data/aiva1.png" alt="">
+                        <img src="data/aiva2.png" alt="">
+                    </div>
+                </div>
+                <h1 class="mensajeConsola">¡Buen trabajo! Tu IA ES <span class="remarcado">SOundful</span></h1>
+                <div class="ia">
+                    <div class="image-container">
+                        <img src="data/soundful1.png" alt="">
+                        <img src="data/soundful2.png" alt="">
+                    </div>
+                </div>
+            </div>
+
+        </div>
         <div class="piano">
             <div class="tecla-contenedor">
-                <div class="tecla blanca" data-note="do"></div>
+                <div class="tecla blanca" data-note="do">
+                    <p>E</p>
+                </div>
                 <div class="tecla negra" data-note="do#"></div>
             </div>
             <div class="tecla-contenedor">
-                <div class="tecla blanca" data-note="re"></div>
+                <div class="tecla blanca" data-note="re">
+                    <p>R</p>
+                </div>
                 <div class="tecla negra" data-note="re#"></div>
             </div>
             <div class="tecla-contenedor">
-                <div class="tecla blanca" data-note="mi"></div>
+                <div class="tecla blanca" data-note="mi">
+                    <p>T</p>
+                </div>
             </div>
             <div class="tecla-contenedor">
-                <div class="tecla blanca" data-note="fa"></div>
+                <div class="tecla blanca" data-note="fa">
+                    <p>Y</p>
+                </div>
                 <div class="tecla negra" data-note="fa#"></div>
             </div>
             <div class="tecla-contenedor">
-                <div class="tecla blanca" data-note="sol"></div>
+                <div class="tecla blanca" data-note="sol">
+                    <p>U</p>
+                </div>
                 <div class="tecla negra" data-note="sol#"></div>
             </div>
             <div class="tecla-contenedor">
-                <div class="tecla blanca" data-note="la"></div>
+                <div class="tecla blanca" data-note="la">
+                    <p>I</p>
+                </div>
                 <div class="tecla negra" data-note="la#"></div>
             </div>
             <div class="tecla-contenedor">
-                <div class="tecla blanca" data-note="si"></div>
+                <div class="tecla blanca" data-note="si">
+                    <p>O</p>
+                </div>
             </div>
         </div>
-    </div>   
-    
+    </div>
 
-<script src="piano.js"></script>
+
+    <script src="piano.js"></script>
 
 </body>
+
 </html>
