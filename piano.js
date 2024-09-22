@@ -1,3 +1,90 @@
+// Selecciona todos los elementos que tienen la clase...
+const instrucciones = document.querySelectorAll('.instruccion');
+const mensajeDeConsola = document.querySelectorAll('.mensaje');
+const mensajeDeIa = document.querySelectorAll('.ia');
+// Carga el boton siguiente
+const siguiente = document.querySelector('.siguiente');
+// Carga el boton siguiente
+const anterior = document.querySelector('.anterior');
+// Carga el boton apagado
+const apagado = document.querySelector('.apagado');
+// Carga el boton encendido
+const encendido = document.querySelector('.encendido');
+// Carga las instrucciones
+const inicio = document.querySelector('.inicio');
+// Carga el piano
+const piano = document.querySelector('.piano-contenedor');
+// Carga la botonera piano
+const pianoMuestra = document.querySelector('.piano-muestra');
+
+
+// Controlar la imagen que muestra actual
+let indiceActual = 0;
+
+// Mostrar la instruccion
+function mostrarInstrucciones(indice) {
+
+    instrucciones.forEach(instruccion => {
+        instruccion.style.display = 'none'; // Oculta todas las instrucciones
+        piano.style.display = 'none'; // Oculta todas las instrucciones
+    });
+
+    instrucciones[indice].style.display = 'block'; // Muestra la instruccion actual
+
+    // Controlar la visibilidad de los botones
+    if (indiceActual === 0) {
+        anterior.style.display = 'none'; // Oculta el botón "Anterior"
+    } else {
+        anterior.style.display = 'inline'; // Muestra el botón "Anterior"
+    }
+
+    if (indiceActual === instrucciones.length - 1) {
+        encendido.style.display = 'block'; // Mostrar el botón "ON" 
+        mensajeDeConsola[0].style.display = 'block'; // Mostrar el mensaje probemos
+        siguiente.style.display = 'none'; // Oculta el botón "Siguiente" 
+        apagado.style.display = 'none'; // Mostrar el botón "OFF" 
+    } else {
+        siguiente.style.display = 'block'; // Mostrar el botón "Siguiente"
+        encendido.style.display = 'none'; // Oculta el botón "ON" 
+        apagado.style.display = 'block'; // Mostrar el botón "OFF"        
+        mensajeDeConsola[0].style.display = 'none'; // Oculta el mensaje probemos
+    }
+}
+
+function continuar() {
+    // Aumentar el índice
+    indiceActual++;
+    // Mostrar la nueva instruccion
+    mostrarInstrucciones(indiceActual);
+}
+
+function volver() {
+    // Disminuir el índice
+    indiceActual--;
+    // Mostrar la nueva instruccion
+    mostrarInstrucciones(indiceActual);
+}
+
+function encenderPiano() {
+    inicio.style.display = 'none'; // Oculta todo
+    piano.style.display = 'block'; // Muestra el piano
+    melodía();
+}
+
+function cancelar() {
+    inicio.style.display = 'block'; // Oculta todo
+    piano.style.display = 'none'; // Oculta el piano
+    clearInterval(intervaloMelodia); // Detiene la reproducción de la melodía si está sonando
+    notaActual = 0; // Reiniciar la secuencia de notas
+    audios.forEach(audio => {
+        audio.pause();             // Pausa el audio
+        audio.currentTime = 0;     // Reinicia el tiempo a 0
+    });
+}
+
+
+mostrarInstrucciones(indiceActual);
+
 // Secuencia de notas
 const secuenciaDeNotas = [
     "do", "do", "sol", "sol", "la", "la", "sol",
@@ -36,6 +123,7 @@ const duracionNota = 150;
 let intervaloMelodia;
 //Controla por que nota va
 let notaActual = 0;
+
 // Reproduce el sonido de la nota
 function reproducirSonido(nota) {
     const audio = new Audio(`data/${nota}.mp3`);
@@ -95,15 +183,16 @@ function controlDeTeclaPresionada(nota) {
         if (notaActual == ia3) {
             notaActual = 0;
             mensajeDeConsola.forEach(mensajeDeConsola => {
-                mensajeDeConsola.style.display = 'none'; // Oculta todos los mensajes}
+                mensajeDeConsola.style.display = 'none'; // Oculta todos los mensajes
             });
             mensajeDeConsola[5].style.display = 'block'; // Mostrar el mensaje 
 
             mensajeDeIa.forEach(mensajeDeIa => {
-                mensajeDeIa.style.display = 'none'; // Oculta todos los mensajes}
+                mensajeDeIa.style.display = 'none'; // Oculta todos los mensajes
             });
             mensajeDeIa[2].style.display = 'block'; // Mostrar el mensaje 
-
+            document.removeEventListener('keydown', teclaPresionada);
+            audios[2].play();
         }
 
     } else {
@@ -117,7 +206,8 @@ function controlDeTeclaPresionada(nota) {
             });
             mensajeDeIa[0].style.display = 'block'; // Mostrar el mensaje 
             mensajeDeConsola[3].style.display = 'block'; // Mostrar el mensaje         
-
+            document.removeEventListener('keydown', teclaPresionada);
+            audios[0].play();
         } else if (notaActual > ia1 && notaActual < ia2) {
             mensajeDeConsola.forEach(mensajeDeConsola => {
                 mensajeDeConsola.style.display = 'none'; // Oculta todos los mensajes}
@@ -127,6 +217,9 @@ function controlDeTeclaPresionada(nota) {
             });
             mensajeDeIa[1].style.display = 'block'; // Mostrar el mensaje 
             mensajeDeConsola[4].style.display = 'block'; // Mostrar el mensaje 
+            document.removeEventListener('keydown', teclaPresionada);
+            audios[1].play();
+
         }
 
         notaActual = 0; // Reiniciar para jugar de nuevo
@@ -143,97 +236,39 @@ function teclaPresionada(event) {
 }
 
 
-// Selecciona todos los elementos que tienen la clase "diapositiva"
-const diapositivas = document.querySelectorAll('.diapositiva');
-const mensajeDeConsola = document.querySelectorAll('.mensajeConsola');
-const mensajeDeIa = document.querySelectorAll('.ia');
-// Carga el boton siguiente
-const siguiente = document.querySelector('.siguiente');
-// Carga el boton siguiente
-const anterior = document.querySelector('.anterior');
-// Carga el boton apagado
-const apagado = document.querySelector('.apagado');
-// Carga el boton encendido
-const encendido = document.querySelector('.encendido');
-// Carga las instrucciones
-const instrucciones = document.querySelector('.carrusel');
-// Carga el piano
-const piano = document.querySelector('.piano-contenedor');
-// Carga la botonera piano
-const pianoMuestra = document.querySelector('.piano-muestra');
+const audios = document.querySelectorAll('.miAudio');
+const botonPlay = document.querySelectorAll('.play');
+const botonPause = document.querySelectorAll('.pause');
+const barraProgreso = document.querySelectorAll('.progreso');
 
+// Inicializar el estado de los botones
+function inicializarBotones() {
+    botonPause.forEach(btn => btn.style.display = 'none');
+}
 
-// Controlar la imagen que muestra actual
-let indiceActual = 0;
+inicializarBotones();
+audios.forEach((audio, index) => {
 
-// Mostrar la diapositiva
-function mostrarDiapositiva(indice) {
-    diapositivas.forEach(diapositiva => {
-        diapositiva.style.display = 'none'; // Oculta todas las diapositivas
-        piano.style.display = 'none'; // Oculta todas las diapositivas
+    audio.addEventListener('timeupdate', () => {
+        const progressValue = (audio.currentTime / audio.duration) * 100;
+        barraProgreso[index].value = progressValue;
     });
 
-    diapositivas[indice].style.display = 'block'; // Muestra la diapositiva actual
+    audio.addEventListener('play', () => {
+        botonPlay[index].style.display = 'none'; // Oculta el botón de reproducir
+        botonPause[index].style.display = 'inline'; // Muestra el botón de pausar
+    });
 
-    // Controlar la visibilidad de los botones
-    if (indiceActual === 0) {
-        anterior.style.display = 'none'; // Oculta el botón "Anterior"
-    } else {
-        anterior.style.display = 'block'; // Muestra el botón "Anterior"
-    }
+    audio.addEventListener('pause', () => {
+        botonPause[index].style.display = 'none'; // Oculta el botón de pausar
+        botonPlay[index].style.display = 'inline'; // Muestra el botón de reproducir
+    });
+});
 
-    if (indiceActual === diapositivas.length - 1) {
-        encendido.style.display = 'block'; // Mostrar el botón "ON" 
-        mensajeDeConsola[0].style.display = 'block'; // Mostrar el mensaje probemos
-        siguiente.style.display = 'none'; // Oculta el botón "Siguiente" 
-        apagado.style.display = 'none'; // Mostrar el botón "OFF" 
-    } else {
-        siguiente.style.display = 'block'; // Mostrar el botón "Siguiente"
-        encendido.style.display = 'none'; // Oculta el botón "ON" 
-        apagado.style.display = 'block'; // Mostrar el botón "OFF"        
-        mensajeDeConsola[0].style.display = 'none'; // Oculta el mensaje probemos
-    }
+function reproducir(index) {
+    audios[index].play();
 }
 
-//Avanzar a la siguiente diapositiva
-function continuar() {
-    // Aumentar el índice
-    indiceActual++;
-    // Mostrar la nueva diapositiva
-    mostrarDiapositiva(indiceActual);
+function pausar(index) {
+    audios[index].pause();
 }
-
-// Función para retroceder a la diapositiva anterior
-function volver() {
-    // Disminuir el índice
-    indiceActual--;
-    // Mostrar la nueva diapositiva
-    mostrarDiapositiva(indiceActual);
-}
-
-function encenderPiano() {
-    instrucciones.style.display = 'none'; // Oculta todas las diapositivas
-    encendido.style.display = 'none'; // Oculta el botón "ON" 
-    apagado.style.display = 'block'; // Mostrar el botón "OFF" 
-    anterior.style.display = 'none'; // Oculta el botón "Anterior"
-    piano.style.display = 'block'; // Muestra el piano
-    pianoMuestra.style.display = 'none'; // Muestra el piano
-    melodía();
-}
-
-function cancelar() {
-    if (indiceActual == diapositivas.length - 1) {
-        instrucciones.style.display = 'block'; // Mostrar las instrucciones
-        anterior.style.display = 'block'; // Mostrar el botón "Anterior"
-        encendido.style.display = 'block'; // Muestra el botón "ON" 
-        apagado.style.display = 'none'; // Mostrar el botón "OFF" 
-        piano.style.display = 'none'; // Oculta el piano
-        mensajeDeConsola.style.display = 'block'; // Mostrar el botón "ON" 
-        pianoMuestra.style.display = 'block'; // Muestra el piano
-        clearInterval(intervaloMelodia); // Detiene la reproducción de la melodía si está sonando
-        notaActual = 0; // Reiniciar la secuencia de notas
-    }
-}
-
-
-mostrarDiapositiva(indiceActual);

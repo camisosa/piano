@@ -13,7 +13,7 @@ body {
 h1,
 p {
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 700px;
 }
 
 .remarcado {
@@ -21,8 +21,13 @@ p {
     color: #FF00D6;
 }
 
+.mensaje {
+    font-size: 30px;
+    display: flex;
+    color: white;
+}
+
 .boton {
-    width: 10%;
     position: absolute;
 }
 
@@ -37,105 +42,146 @@ button {
     cursor: pointer;
 }
 
-.carrusel {
-    margin-top: 2%;
-    position: relative;
+.instrucciones {
+    margin-top: 1%;
+    margin-bottom: 0.5%;
     display: flex;
+    position: relative;
     justify-content: center;
     align-items: center;
-    height: 80vh;
 }
 
-.carrusel-contenedor {
+.pizarron {
     display: flex;
-    overflow: hidden;
     justify-content: center;
     width: 70%;
 }
 
-.diapositivas-contenedor {
-    display: flex;
-    overflow: hidden;
-    justify-content: center;
-    width: 90%;
+.contenedorIntrucciones {
+    width: 95%;
 }
 
-.diapositiva {
-    flex: 1 0 100%;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.diapositiva img {
+.instruccion img {
     width: 100%;
     height: auto;
 }
 
+.anterior,
+.siguiente {
+    top: 45%;
+    width: 12%;
+}
+
 .anterior {
     left: 2%;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .siguiente {
     right: 2%;
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 .apagado {
     width: 13%;
-    padding-bottom: 0.5%;
     position: relative;
 }
 
 .encendido {
     width: 13%;
-    padding-bottom: 0.5%;
     position: relative;
 }
 
 .piano-muestra {
     display: flex;
     width: 74%;
-    padding: 1.5% 0 0 2%;
-    margin: 0 12%;
-    bottom: 0;
+    height: 13vh;
+    padding: 1.5% 2%;
+    margin: 0 11%;
     background-image: url(data/fondoPiano.png);
     background-size: cover;
-    /* Hace que la imagen ocupe todo el espacio del contenedor */
+    overflow: hidden;
     background-repeat: no-repeat;
-    /* Evita que la imagen se repita */
 
 }
 
-.mensajeConsola {
-    margin: 2% 0 2% 25%;
-    color: white;
+.inicio .consola {
+    width: 93vh;
+    height: 15vh;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    overflow: hidden;
+    margin: 1% 2% 0 7%;
     text-align: center;
-    font-size: 30px;
+
 }
 
+.superior {
+    display: flex;
+}
+
+.superior .apagado {
+    width: 13%;
+    height: 13%;
+}
 
 .ia {
     display: flex;
     position: absolute;
-    margin-top: 30%;
     z-index: 3;
+    left: 7%;
+    top: 29%;
 }
 
 .image-container {
     display: flex;
-    gap: 22%;
+    gap: 33%;
     /* Espacio entre las imágenes */
 }
 
 .image-container img {
-    width: 40%;
+    width: 35%;
     display: block;
     /* Asegura que no haya espacio extra alrededor de las imágenes */
+}
+
+.reproductor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+/* Estilo general del progress */
+progress {
+    width: 70%;
+    height: 8px;
+    appearance: none;
+    -webkit-appearance: none;
+    margin-left: 5%;
+}
+
+/* Para navegadores WebKit (como Chrome y Safari) */
+progress::-webkit-progress-bar {
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+    background-color: #9429D7;
+    border-radius: 10px;
+}
+
+/* Para navegadores Firefox */
+progress::-moz-progress-bar {
+    background-color: #9429D7;
+    border-radius: 10px;
+}
+
+/* Puedes cambiar los colores, bordes, tamaño, etc. a tu gusto */
+
+.reproductor .boton {
+    position: relative;
+    width: 15px;
 }
 
 
@@ -148,29 +194,32 @@ button {
     border-radius: 2%;
 }
 
-.parte-superior {
-    display: flex;
-
-}
 
 .piano-contenedor .apagado {
-    width: 18%;
-    padding: 2% 0 0 2%;
+    width: 15%;
+    margin: 3% 0 0 2%;
 }
 
-.cont-mensajeConsola {
-    margin: 3% 4%;
-    width: 65vh;
+.pianoCompleto .consola {
+    margin: 3% 5%;
+    width: 67vh;
+    height: 22vh;
     justify-content: center;
     align-items: center;
-    padding: 6% 0 6% 0;
     display: flex;
+    overflow: hidden;
 }
 
-.cont-mensajeConsola .mensajeConsola {
+.pianoCompleto .mensaje {
     margin: 3% 0 0 2%;
     font-size: 20px;
     display: flex;
+    text-align: center;
+}
+
+.pianoCompleto .mensaje h1 {
+    font-size: 20px;
+    margin-bottom: 5%;
 }
 
 .piano {
